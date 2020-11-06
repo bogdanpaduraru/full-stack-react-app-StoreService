@@ -1,0 +1,31 @@
+{
+  "name": "full-stack-react-app-storeservice",
+  "version": "1.0.0",
+  "description": "Full stack React app project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bogdanpaduraru/full-stack-react-app-StoreService.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Bogdan Paduraru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bogdanpaduraru/full-stack-react-app-StoreService/issues"
+  },
+  "homepage": "https://github.com/bogdanpaduraru/full-stack-react-app-StoreService#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "pg": "^8.4.2"
+  }
+}
