@@ -8,7 +8,7 @@ class Database {
         this._pool = new Pool({
             connectionString: CONNECTION_STRING,
             ssl: SSL
-        })
+        });
 
         this._pool.on('error', (err, client) => {
             console.error('Unexpected error on postgresql client.', err);
@@ -22,14 +22,14 @@ class Database {
             const params = args.length === 2 ? args[0] : [];
             const callback = args.length === 1 ? args[0] : args[1];
 
-            client.query(query, params, (err, res) => {
+            client.query(query, params, (error, res) => {
                 done(); 
-                if(err){
-                    console.log(err.stack);
+                if(error){
+                    console.log(error.stack);
                     return callback({ error: 'Database error.'}, null);
                 }
-                callback({}, res.rows);
-            }); 
+                callback({ error: null }, res.rows);
+            });
         });
     }
 
