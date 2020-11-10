@@ -46,7 +46,7 @@ class App extends Component {
     fetch('/api/offers')
     .then(res => res.json())
     .then(res => {
-      var offerList = res.map(r => r.offer_name);
+      var offerList = res.map(r => r.offerName);
       this.setState({ offerList });
     });
   };
@@ -91,7 +91,6 @@ class App extends Component {
     fetch(`/api/items/${item_name}`)
     .then(res => res.json())
     .then(item => {
-      console.log(item);
       this.setState({ item });
     });
   }
@@ -100,18 +99,15 @@ class App extends Component {
     fetch(`/api/offers/${offer_name}`)
     .then(res => res.json())
     .then(offer => {
-      console.log(offer);
       this.setState({ offer });
     });
   }
 
   handleChangeItem = (e) => {
-    console.log(e);
     this.getItem(e.target.value);
   }
 
   handleChangeOffer =(e) => {
-    console.log(e);
     this.getOffer(e.target.value);
   }
 

@@ -20,12 +20,10 @@ router.get('/', function (req, res) {
                     return res.json(err);
                 }
                 var offer = new Offer(dbOffer.id, dbOffer.offer_name);
-                console.log(offer);
                 for(const transaction of transactions) {
                     offer.addOfferItemTransaction(transaction.item_id, transaction.item_delta);
                 }
                 offers.push(offer);
-                console.log(offer);
 
                 if(offers.length == dbOffers.length) {
                     return res.json(offers);

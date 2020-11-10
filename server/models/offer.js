@@ -13,7 +13,6 @@ class Offer {
     }
 
     addOfferItemTransaction(itemId, itemDelta) {
-        console.log(itemId + " " + itemDelta);
         var transaction = new Transaction(itemId, itemDelta);
         this.transactions.push(transaction);
     }

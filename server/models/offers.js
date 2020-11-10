@@ -17,7 +17,6 @@ class Offers {
                 console.log('error from query');
                 return callback(err, null);
             }
-            console.log('no error after query');
             callback({}, res[0]);
         });
     }
@@ -32,7 +31,6 @@ class Offers {
 
     static retrieveOfferTransactions (offer, callback) {
         var query = `Select * from offer_transactions where offer_id = '${offer}'`;
-        console.log(query);
          db.query(query, (err, res) => {
             if(err.error)
                 return callback(err, null);
