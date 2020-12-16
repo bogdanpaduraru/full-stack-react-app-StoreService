@@ -4,8 +4,6 @@ import { Row, Col, Table } from 'reactstrap';
 const Offer = (props) => {
   const { data } = props;
   
-  console.log(data);
-
   if (!data)
     return <div></div>;
 

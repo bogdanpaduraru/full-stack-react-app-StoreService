@@ -34,10 +34,9 @@ router.get('/test', function (req, res) {
 
 router.post('/', function (req, res) {
     var item_name = req.body.item_name;
-    var quantity = req.body.quantity;
     var max_quantity = req.body.max_quantity;
     
-    Items.insert(item_name, quantity, max_quantity, (err, result) => {
+    Items.insert(item_name, max_quantity, (err, result) => {
         if (err.error)
           return res.json(err);
         return res.json(result);

@@ -14,7 +14,7 @@ class Items {
         db.query(`Select * from items Where item_name = '${item}'`, (err, res) => {
             if(err.error)
                 return callback(err, null);
-            callback({}, res);
+            callback({}, res[0]);
         });
     }
 
@@ -31,8 +31,8 @@ class Items {
         });
     }
 
-    static insert (item, quantity, max_quantity, callback) {
-        db.query('Insert INTO items (item_name, quantity, max_quantity) VALUES ($1, $2, $3)', [item, quantity, max_quantity], (err, res) => {
+    static insert (item, max_quantity, callback) {
+        db.query('Insert INTO items (item_name, max_quantity) VALUES ($1, $2)', [item, max_quantity], (err, res) => {
             if(err.error)
                 return callback(err, null);
             callback({}, res);

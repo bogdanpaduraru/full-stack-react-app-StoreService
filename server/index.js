@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 
 app.use('/api/items', require('./api/items'));
 app.use('/api/offers', require('./api/offers'));
+app.use('/api/inventory', require('./api/inventory'));
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
