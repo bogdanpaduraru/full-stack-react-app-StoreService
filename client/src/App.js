@@ -97,6 +97,12 @@ class App extends Component {
   };
 
   handleAddOffer = () => {
+    if(this.state.offerTransactions == undefined || this.state.offerTransactions.length == 0 || 
+      this.state.offerName || this.state.newOfferName == '') {
+        window.alert("Make sure offer has a name and at least 1 transaction!");
+        return;
+    }
+
     fetch('/api/offers', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -387,6 +393,7 @@ displayCurrentInventoryTableData(objs){
                   <Col>
                     <Input
                         placeholder="Quantity"
+                        type="number"
                         value={this.state.inventoryItemQuantity}
                         onChange={e => this.setState({ inventoryItemQuantity: e.target.value })}
                     />
@@ -415,6 +422,7 @@ displayCurrentInventoryTableData(objs){
                 <Input
                     placeholder="Max quantity for this item..."
                     value={this.state.itemMaxQuantity}
+                    type="number"
                     onChange={e => this.setState({ itemMaxQuantity: e.target.value })}
                 />
                 <InputGroupAddon addonType="append">
@@ -445,34 +453,24 @@ displayCurrentInventoryTableData(objs){
           <Tab eventKey="offerCreator" title="Offer Creator">
             <Jumbotron>
               <h1 className="display-3">Offer Creator</h1>
-              <Row>
-                <Col>
-                  <InputGroup>
-                    <Input 
-                      placeholder="New offer name..."
-                      value={this.state.newOfferName}
-                      onChange={this.handleOfferInputChange}
-                    />
-                  </InputGroup>
-                </Col>
-                <Col>
-                  <Row>Offer Transactions</Row>
-                  <Row>
-                    <table id="transactionTable" border="2">
-                      <thead>
-                        <tr>
-                          <th>Item name</th>
-                          <th>Item ID</th>
-                          <th>Item delta</th>
-                        </tr>
-                      </thead>
-                    <tbody>
-                    </tbody>
-                    </table>
-                  </Row>
-                </Col>
-                
-              </Row>
+              <Input 
+                  placeholder="New offer name..."
+                  value={this.state.newOfferName}
+                  onChange={this.handleOfferInputChange}
+              />
+              <br/>
+              <p>Offer Transactions</p>
+              <table id="transactionTable" border="2" className="center">
+                <thead>
+                  <tr>
+                    <th>Item name</th>
+                    <th>Item ID</th>
+                    <th>Item delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
               
               <br/>
 
@@ -490,6 +488,7 @@ displayCurrentInventoryTableData(objs){
                   <Input
                       placeholder="Item delta"
                       value={this.state.transactionItemDelta}
+                      type="number"
                       onChange={e => this.setState({ transactionItemDelta: e.target.value })}
                   />
                 </Col>
@@ -500,10 +499,12 @@ displayCurrentInventoryTableData(objs){
                 </Col>
               </Row>
                 
-              <InputGroupAddon addonType="append">
-                <Button color="primary" onClick={this.handleAddOffer}>Add offer</Button>
-              </InputGroupAddon>
+              <Button color="primary" onClick={this.handleAddOffer}>Add offer</Button>
 
+              <br></br>
+              <row>
+                <br></br>
+              </row>
               <Row>
                 <Col>
                   <h1 className="display-5">All offers</h1>
