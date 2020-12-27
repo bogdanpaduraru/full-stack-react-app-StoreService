@@ -16,8 +16,6 @@ class Offers {
         var query = `Select offer_id, offer_name, item_id, item_delta from offers inner join offer_transactions
         on offers.id = offer_transactions.offer_id
         where offer_name = '${offer}' `;
-        console.log(query);
-        //var query = `Select * from offers Where offer_name = '${offer}'`;
         db.query(query, (err, res) => {
             if(err.error) {
                 console.log('error from query');

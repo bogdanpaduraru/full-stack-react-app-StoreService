@@ -97,8 +97,8 @@ class App extends Component {
   };
 
   handleAddOffer = () => {
-    if(this.state.offerTransactions == undefined || this.state.offerTransactions.length == 0 || 
-      this.state.offerName || this.state.newOfferName == '') {
+    if(this.state.offerTransactions === undefined || this.state.offerTransactions.length === 0 || 
+      this.state.offerName || this.state.newOfferName === '') {
         window.alert("Make sure offer has a name and at least 1 transaction!");
         return;
     }
@@ -189,7 +189,6 @@ class App extends Component {
     fetch(`/api/items/${item_name}`)
     .then(res => res.json())
     .then(item => {
-      console.log(item);
       this.setState({ item });
     });
   }
@@ -215,7 +214,6 @@ class App extends Component {
     fetch(`/api/offers/${offer_name}`)
     .then(res => res.json())
     .then(offer => {
-      console.log(offer);
       this.setState({ offer });
     });
   }
@@ -237,7 +235,6 @@ class App extends Component {
   }
 
   handleChangeOffer =(e) => {
-    console.log(e);
     this.getOffer(e.target.value);
   }
 

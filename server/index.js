@@ -16,6 +16,13 @@ app.use('/api/items', require('./api/items'));
 app.use('/api/offers', require('./api/offers'));
 app.use('/api/inventory', require('./api/inventory'));
 
+if (ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/build')));
+    app.use((req, res) => {
+        res.sendFile(path.join(__dirname, '../client/build/index.html'));
+    });
+}
+
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
 });

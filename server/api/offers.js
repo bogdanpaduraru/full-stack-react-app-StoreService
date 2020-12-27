@@ -42,7 +42,6 @@ router.get('/:offer', (req, res) => {
             return res.json(err);
         }
 
-        console.log(dbData);
         
         if(dbData.length === 0) {
             return res.json();
