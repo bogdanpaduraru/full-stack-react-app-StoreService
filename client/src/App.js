@@ -331,56 +331,151 @@ displayCurrentInventoryTableData(objs){
 
   render() {
     return (
-      <Container fluid className="centered">
-        <Navbar dark color="dark">
-          <NavbarBrand>Store Service</NavbarBrand>
-        </Navbar>
+      <div className="App">
+        <Container fluid className="centered">
+          <Navbar dark color="dark">
+            <NavbarBrand>Store Service</NavbarBrand>
+          </Navbar>
 
-        <br/>
+          <br/>
 
-        <br/>
+          <br/>
 
-        <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
-          <Tab eventKey="home" title="Home">
-            Nothing to see here, this tab is <em>extinct</em>! 
-          </Tab>
+          <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
+            <Tab eventKey="home" title="Home">
+              Nothing to see here, this tab is <em>extinct</em>! 
+            </Tab>
 
-          <Tab eventKey="playerInventory" title="Player Inventory">
-            <Jumbotron>
-              <h1 className="display-3">Player inventory</h1>
-              <div className="centered">
-                <p> Current inventory </p>
-              </div>
-              
-              <div className="center">
+            <Tab eventKey="playerInventory" title="Player Inventory">
+              <Jumbotron>
+                <h1 className="display-3">Player inventory</h1>
+                <div className="centered">
+                  <p> Current inventory </p>
+                </div>
+                
+                <div className="center">
+                  <Row>
+                    <table id="currentInventoryTable" border="2">
+                      <thead>
+                        <tr>
+                          <th>Edit</th>
+                          <th>Item name</th>
+                          <th>Item ID</th>
+                          <th>Quantity</th>
+                          <th>Remove</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                    </tbody>
+                    </table>
+                  </Row>
+                </div>
+                
+                <br/>
+
+                <div className="centered">
+                  <p> Add more items for this player </p>
+                </div>
+
+                <div className="inputCenter">
+                  <Row>
+                    <Col>
+                      <FormGroup>
+                        <Input type="select" onChange={this.handleChangeInventoryItem}>
+                          { this.state.itemList.length === 0 && <option>No available items yet.</option> }
+                          { this.state.itemList.length > 0 && <option>Select an item.</option> }
+                          { this.state.itemList.map((item, i) => <option key={i}>{item}</option>) }
+                        </Input>
+                      </FormGroup>
+                    </Col>
+                    <Col>
+                      <Input
+                          placeholder="Quantity"
+                          type="number"
+                          value={this.state.inventoryItemQuantity}
+                          onChange={e => this.setState({ inventoryItemQuantity: e.target.value })}
+                      />
+                    </Col>
+                    <Col>
+                      <InputGroupAddon addonType="append">
+                        <Button color="primary" onClick={this.handleAddInventoryItem}>Add item</Button>
+                      </InputGroupAddon>
+                    </Col>
+                  </Row>
+                </div>
+                
+
+              </Jumbotron>
+            </Tab>
+
+            <Tab eventKey="itemCreator" title="Item Creator">
+              <Jumbotron>
+                <h1 className="display-4">Item Creator</h1>
+                <InputGroup>
+                  <Input 
+                    placeholder="New item name..."
+                    value={this.state.newItemName}
+                    onChange={this.handleItemInputChange}
+                  />
+                  <Input
+                      placeholder="Max quantity for this item..."
+                      value={this.state.itemMaxQuantity}
+                      type="number"
+                      onChange={e => this.setState({ itemMaxQuantity: e.target.value })}
+                  />
+                  <InputGroupAddon addonType="append">
+                    <Button color="primary" onClick={this.handleAddItem}>Add Item</Button>
+                  </InputGroupAddon>
+                  
+                </InputGroup>
+
+                <br/>
+
                 <Row>
-                  <table id="currentInventoryTable" border="2">
-                    <thead>
-                      <tr>
-                        <th>Edit</th>
-                        <th>Item name</th>
-                        <th>Item ID</th>
-                        <th>Quantity</th>
-                        <th>Remove</th>
-                      </tr>
-                    </thead>
+                  <Col>
+                    <h1 className="display-5">All items</h1>
+                    <FormGroup>
+                      <Input type="select" onChange={this.handleChangeItem}>
+                        { this.state.itemList.length === 0 && <option>No items added yet.</option> }
+                        { this.state.itemList.length > 0 && <option>Select an item.</option> }
+                        { this.state.itemList.map((item, i) => <option key={i}>{item}</option>) }
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
+
+                <Item data={this.state.item}/>
+
+              </Jumbotron>
+            </Tab>
+            <Tab eventKey="offerCreator" title="Offer Creator">
+              <Jumbotron>
+                <h1 className="display-3">Offer Creator</h1>
+                <Input 
+                    placeholder="New offer name..."
+                    value={this.state.newOfferName}
+                    onChange={this.handleOfferInputChange}
+                />
+                <br/>
+                <p>Offer Transactions</p>
+                <table id="transactionTable" border="2" className="center">
+                  <thead>
+                    <tr>
+                      <th>Item name</th>
+                      <th>Item ID</th>
+                      <th>Item delta</th>
+                    </tr>
+                  </thead>
                   <tbody>
                   </tbody>
-                  </table>
-                </Row>
-              </div>
-              
-              <br/>
+                </table>
+                
+                <br/>
 
-              <div className="centered">
-                <p> Add more items for this player </p>
-              </div>
-
-              <div className="inputCenter">
                 <Row>
                   <Col>
                     <FormGroup>
-                      <Input type="select" onChange={this.handleChangeInventoryItem}>
+                      <Input type="select" onChange={this.handleChangeTransactionItem}>
                         { this.state.itemList.length === 0 && <option>No available items yet.</option> }
                         { this.state.itemList.length > 0 && <option>Select an item.</option> }
                         { this.state.itemList.map((item, i) => <option key={i}>{item}</option>) }
@@ -389,141 +484,48 @@ displayCurrentInventoryTableData(objs){
                   </Col>
                   <Col>
                     <Input
-                        placeholder="Quantity"
+                        placeholder="Item delta"
+                        value={this.state.transactionItemDelta}
                         type="number"
-                        value={this.state.inventoryItemQuantity}
-                        onChange={e => this.setState({ inventoryItemQuantity: e.target.value })}
+                        onChange={e => this.setState({ transactionItemDelta: e.target.value })}
                     />
                   </Col>
                   <Col>
                     <InputGroupAddon addonType="append">
-                      <Button color="primary" onClick={this.handleAddInventoryItem}>Add item</Button>
+                      <Button color="primary" onClick={this.handleAddTransaction}>Add transaction</Button>
                     </InputGroupAddon>
                   </Col>
                 </Row>
-              </div>
-              
+                  
+                <Button color="primary" onClick={this.handleAddOffer}>Add offer</Button>
 
-            </Jumbotron>
-          </Tab>
-
-          <Tab eventKey="itemCreator" title="Item Creator">
-            <Jumbotron>
-              <h1 className="display-4">Item Creator</h1>
-              <InputGroup>
-                <Input 
-                  placeholder="New item name..."
-                  value={this.state.newItemName}
-                  onChange={this.handleItemInputChange}
-                />
-                <Input
-                    placeholder="Max quantity for this item..."
-                    value={this.state.itemMaxQuantity}
-                    type="number"
-                    onChange={e => this.setState({ itemMaxQuantity: e.target.value })}
-                />
-                <InputGroupAddon addonType="append">
-                  <Button color="primary" onClick={this.handleAddItem}>Add Item</Button>
-                </InputGroupAddon>
-                
-              </InputGroup>
-
-              <br/>
-
-              <Row>
-                <Col>
-                  <h1 className="display-5">All items</h1>
-                  <FormGroup>
-                    <Input type="select" onChange={this.handleChangeItem}>
-                      { this.state.itemList.length === 0 && <option>No items added yet.</option> }
-                      { this.state.itemList.length > 0 && <option>Select an item.</option> }
-                      { this.state.itemList.map((item, i) => <option key={i}>{item}</option>) }
-                    </Input>
-                  </FormGroup>
-                </Col>
-              </Row>
-
-              <Item data={this.state.item}/>
-
-            </Jumbotron>
-          </Tab>
-          <Tab eventKey="offerCreator" title="Offer Creator">
-            <Jumbotron>
-              <h1 className="display-3">Offer Creator</h1>
-              <Input 
-                  placeholder="New offer name..."
-                  value={this.state.newOfferName}
-                  onChange={this.handleOfferInputChange}
-              />
-              <br/>
-              <p>Offer Transactions</p>
-              <table id="transactionTable" border="2" className="center">
-                <thead>
-                  <tr>
-                    <th>Item name</th>
-                    <th>Item ID</th>
-                    <th>Item delta</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-              
-              <br/>
-
-              <Row>
-                <Col>
-                  <FormGroup>
-                    <Input type="select" onChange={this.handleChangeTransactionItem}>
-                      { this.state.itemList.length === 0 && <option>No available items yet.</option> }
-                      { this.state.itemList.length > 0 && <option>Select an item.</option> }
-                      { this.state.itemList.map((item, i) => <option key={i}>{item}</option>) }
-                    </Input>
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <Input
-                      placeholder="Item delta"
-                      value={this.state.transactionItemDelta}
-                      type="number"
-                      onChange={e => this.setState({ transactionItemDelta: e.target.value })}
-                  />
-                </Col>
-                <Col>
-                  <InputGroupAddon addonType="append">
-                    <Button color="primary" onClick={this.handleAddTransaction}>Add transaction</Button>
-                  </InputGroupAddon>
-                </Col>
-              </Row>
-                
-              <Button color="primary" onClick={this.handleAddOffer}>Add offer</Button>
-
-              <br></br>
-              <row>
                 <br></br>
-              </row>
-              <Row>
-                <Col>
-                  <h1 className="display-5">All offers</h1>
-                  <FormGroup>
-                    <Input type="select" onChange={this.handleChangeOffer}>
-                      { this.state.offerList.length === 0 && <option>No offers added yet.</option> }
-                      { this.state.offerList.length > 0 && <option>Select an offer.</option> }
-                      { this.state.offerList.map((offer, i) => <option key={i}>{offer}</option>) }
-                    </Input>
-                  </FormGroup>
-                </Col>
-              </Row>
+                <row>
+                  <br></br>
+                </row>
+                <Row>
+                  <Col>
+                    <h1 className="display-5">All offers</h1>
+                    <FormGroup>
+                      <Input type="select" onChange={this.handleChangeOffer}>
+                        { this.state.offerList.length === 0 && <option>No offers added yet.</option> }
+                        { this.state.offerList.length > 0 && <option>Select an offer.</option> }
+                        { this.state.offerList.map((offer, i) => <option key={i}>{offer}</option>) }
+                      </Input>
+                    </FormGroup>
+                  </Col>
+                </Row>
 
-              <Offer data={this.state.offer}/>
+                <Offer data={this.state.offer}/>
 
-            </Jumbotron>
-          </Tab>
-          <Tab eventKey="contact" title="Contact" disabled>
-            See ya later, <em>Alligator</em>! 
-          </Tab>
-        </Tabs>
-      </Container>
+              </Jumbotron>
+            </Tab>
+            <Tab eventKey="contact" title="Contact" disabled>
+              See ya later, <em>Alligator</em>! 
+            </Tab>
+          </Tabs>
+        </Container>
+      </div>
     );
   }
 }
