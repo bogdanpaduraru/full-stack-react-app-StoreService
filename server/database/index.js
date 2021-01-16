@@ -1,6 +1,6 @@
 var { Pool } = require('pg');
 
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:test@localhost:5432/store-service-db';
+const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql12://postgres:test@localhost:5432/store-service-db';
 //const SSL = process.env.NODE_ENV === 'production';
 const SSL = false;
 
@@ -15,8 +15,6 @@ class Database {
             console.error('Unexpected error on postgresql client.', err);
             process.exit(-1);
         });
-
-        console.log('finished Database constructor');
     }
 
     query (query, ...args) {

@@ -5,12 +5,13 @@
   "homepage": ".",
   "dependencies": {
     "bootstrap": "^4.5.3",
+    "create-react-app": "^4.0.1",
     "lodash": "^4.17.20",
     "lodash.template": "^4.5.0",
     "merge": "^1.2.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "^3.4.4",
+    "react-scripts": "^4.0.1",
     "reactstrap": "^6.5.0"
   },
   "scripts": {

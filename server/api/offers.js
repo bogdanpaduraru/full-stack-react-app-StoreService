@@ -13,6 +13,9 @@ router.get('/', function (req, res) {
         }
 
         var offers  = [];
+        if(dbOffers.length == 0) {
+            return res.json();
+        }
 
         for(const dbOffer of dbOffers) {
             Offers.retrieveOfferTransactions(dbOffer.id, function (err, transactions) {
